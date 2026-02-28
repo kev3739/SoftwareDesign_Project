@@ -1,0 +1,62 @@
+@startuml
+title A4 - Monitoring & Enforcement
+
+actor "System Clock" as CLK
+actor "Sensor Device" as SD
+
+control "Reservation System" as RS
+control "Monitoring Service" as MS
+control "Usage Service" as US
+control "Billing Service" as BS
+
+
+' ======================================================
+' UC18: Detect Late Arrival
+' ======================================================
+
+alt clock tick
+  group UC18: Detect Late Arrival
+
+    CLK -> RS: check reservations with start time
+    RS -> RS: wait until 20 min\nafter start time
+
+    RS -> MS: check user check-in status
+    MS --> RS: check-in status
+
+    alt NOT checked in
+      RS -> MS: mark user late
+      MS -> BS: trigger UC16\n(Forfeit Deposit)
+
+    else checked in
+      RS -> RS: no action\n(reservation valid)
+    end
+
+  end
+end
+
+
+
+' ======================================================
+' UC17: Track Equipment Usage
+' ======================================================
+
+alt update
+  group UC17: Track Equipment Usage
+
+    SD -> US: send equipment status update
+
+    ' --------------------------------------------------
+    ' UC19: Record Usage Duration  (included in UC17)
+    ' --------------------------------------------------
+    group UC19: Record Usage Duration
+      US -> MS: record usage duration\n(total time)
+      MS --> US: usage duration recorded
+
+      US -> BS: store usage record\n(for fee calculation UC14)
+      BS --> US: usage record stored
+    end
+
+  end
+end
+
+@enduml

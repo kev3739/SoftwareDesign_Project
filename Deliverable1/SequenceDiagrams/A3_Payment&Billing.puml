@@ -1,0 +1,98 @@
+@startuml
+title A3 - Payment & Billing
+
+actor User as U
+boundary "Equipment Portal UI" as UI
+control "Reservation System" as RS
+control "Billing Service" as BS
+control "Notification Service" as NS
+control "Monitoring Service" as MS
+
+
+' ======================================================
+' UC16: Forfeit Deposit (Late Arrival)
+' ======================================================
+
+alt arrival detected
+  group UC16: Forfeit Deposit (Late Arrival)
+
+    MS -> RS: late arrival detected
+    RS -> RS: identify reservation and user
+
+    RS -> BS: forfeit deposit\n(mark deposit forfeited)
+    BS --> RS: deposit forfeited recorded
+
+    RS -> NS: notify user\n(deposit forfeited)
+    NS --> U: deposit forfeited notice
+
+  end
+end
+
+
+
+' ======================================================
+' UC15: Process Final Payment
+' ======================================================
+
+alt completed / payment due
+  group UC15: Process Final Payment
+
+    RS -> BS: reservation completed /\npayment due
+
+    RS -> RS: retrieve reservation usage record
+    RS --> BS: usage record
+
+
+    ' --------------------------------------------------
+    ' UC14: Calculate Usage Fee
+    ' --------------------------------------------------
+    group UC14: Calculate Usage Fee
+      BS -> BS: calculate usage fee\n(based on user type rate)
+      BS -> BS: check deposit status
+      BS --> BS: deposit status
+
+      alt forfeited
+        BS -> BS: deposit credit = 0
+
+      else NOT forfeited
+        BS -> BS: apply deposit credit
+      end
+
+      BS -> BS: calculate total amount due
+      BS --> UI: total amount due
+    end
+
+
+    UI --> U: show amount due\nand payment options
+
+    note right of UI
+      Payment methods vary by user type (Req10):
+      - Student: Credit/Debit/Institutional
+      - Faculty: Credit/Debit
+      - Researcher: Credit/Debit/Grant
+      - Guest: Credit/Debit
+    end note
+
+    U -> UI: select payment method\nand confirm payment
+    UI -> BS: process payment
+
+
+    ' --------------------------------------------------
+    ' Payment outcome
+    ' --------------------------------------------------
+    alt successful
+      BS --> UI: payment successful
+      UI -> RS: confirm payment complete
+      RS -> BS: generate receipt
+      BS --> UI: receipt details
+      UI --> U: show receipt\nand payment complete
+
+    else failed
+      BS --> UI: payment failure
+      UI --> U: show payment failure /\nretry option
+    end
+
+  end
+end
+
+@enduml

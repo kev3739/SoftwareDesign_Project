@@ -1,0 +1,97 @@
+@startuml
+title A6 - System Administration
+
+actor "Head Lab Coordinator" as HLC
+boundary "Admin UI" as UI
+control "Admin System" as AS
+
+
+' ------------------------------------------------------
+' Entry: Open Admin Panel + Authorization
+' ------------------------------------------------------
+
+HLC -> UI: open administration panel
+UI -> AS: check authorization
+AS --> UI: authorization result
+
+
+alt Not authorized
+  UI --> HLC: show access denied
+
+else Authorized
+  UI --> HLC: display administration menu
+  HLC -> UI: select administration task
+
+
+  ' ======================================================
+  ' UC24: Create Lab Manager Account
+  ' ======================================================
+  alt Lab Manager Account (UC24)
+    group UC24: Create Lab Manager Account
+      UI -> AS: auto-generate lab manager credentials
+      AS --> UI: generated credentials
+
+      UI -> AS: create lab manager account
+      AS --> UI: account created
+
+      UI -> AS: store account information
+      AS --> UI: information stored
+
+      UI --> HLC: display account creation confirmation
+    end
+
+
+  ' ======================================================
+  ' UC25: Manage User Accounts
+  ' ======================================================
+  else User Accounts (UC25)
+    group UC25: Manage User Accounts
+
+      loop multiple users
+        HLC -> UI: request user list
+        UI -> AS: request user list
+        AS --> UI: user list
+        UI --> HLC: display user list
+
+        HLC -> UI: select user
+        UI -> AS: fetch selected user
+        AS --> UI: user details
+        UI --> HLC: show user details
+
+        HLC -> UI: choose management function
+      end
+
+
+      ' ----- Activity (Audit Log) -----
+      alt Activity
+        UI -> AS: request audit activity log
+        AS --> UI: audit data
+        UI --> HLC: show audit activity
+
+      ' ----- Deactivate Account -----
+      else Account
+        UI -> AS: deactivate user account
+        AS --> UI: deactivation successful
+        UI --> HLC: show deactivation confirmation
+
+      ' ----- Reset Password -----
+      else Password
+        UI -> AS: reset user password
+        AS --> UI: password reset successful
+        UI --> HLC: show password reset confirmation
+
+      ' ----- Show User List Again -----
+      else Users
+        UI -> AS: request user list
+        AS --> UI: user list
+        UI --> HLC: show users
+      end
+
+      UI --> HLC: return to user list or menu
+
+    end
+  end
+
+end
+
+@enduml

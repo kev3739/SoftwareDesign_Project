@@ -1,0 +1,120 @@
+@startuml
+title A1 - Account Management: Login & Registration
+
+actor User as U
+boundary "Account Portal UI" as UI
+control "Auth Service" as AUTH
+control "Department Approval System" as DAS
+
+' ---------------------------------------------------------
+' ENTRY
+' ---------------------------------------------------------
+
+U -> UI: open account portal
+UI --> U: show Login/Register options
+
+
+' ---------------------------------------------------------
+' LOGIN FLOW (UC5)
+' ---------------------------------------------------------
+alt chooses Login
+  U -> UI: choose Login
+  UI --> U: show login form
+  U -> UI: enter email + password
+  UI -> AUTH: authenticate credentials
+
+  alt valid
+    AUTH --> UI: valid
+    UI --> U: login successful (enter system)
+
+  else invalid
+    AUTH --> UI: invalid
+    UI --> U: show login failed
+  end
+
+end
+
+
+' ---------------------------------------------------------
+' REGISTRATION FLOW (UC1)
+' ---------------------------------------------------------
+alt chooses Register
+  U -> UI: choose Register
+  UI --> U: show registration form
+  U -> UI: enter email + password
+
+
+  ' -------------------------------------------------------
+  ' UC2: Validate Password Strength
+  ' -------------------------------------------------------
+  UI -> AUTH: validate password strength
+
+  alt weak
+    AUTH --> UI: weak
+    UI --> U: show password rules\nshow weak password error
+
+  else strong
+    AUTH --> UI: strong
+
+
+    ' -----------------------------------------------------
+    ' EMAIL UNIQUENESS CHECK
+    ' -----------------------------------------------------
+    UI -> AUTH: check email unique?
+
+    alt not unique
+      AUTH --> UI: not unique
+      UI --> U: show email not unique\n(prompt new email)
+
+    else unique
+      AUTH --> UI: unique
+      UI --> U: show select user type\n(Student/Faculty/Researcher/Guest)
+      U -> UI: select user type
+
+
+      ' ---------------------------------------------------
+      ' UC3: Submit Identification / Certification
+      ' ---------------------------------------------------
+      UI -> AUTH: submit identification / certification
+      AUTH --> UI: validate ID
+
+      alt invalid
+        UI --> U: show invalid ID
+
+      else valid
+        UI --> U: valid
+
+
+        ' -------------------------------------------------
+        ' APPROVAL NEEDED?  (UC4)
+        ' -------------------------------------------------
+        alt not required\n(Student or Guest)
+          UI -> AUTH: create user account
+          AUTH --> UI: account created
+          UI --> U: show registration confirmation
+
+        else required\n(Faculty or Researcher)
+          UI -> DAS: request approval\n(Approve University-Affiliated Account)
+
+          alt approved
+            DAS --> UI: approved
+            UI -> AUTH: create user account
+            AUTH --> UI: account created
+            UI --> U: show registration confirmation
+
+          else pending/denied
+            DAS --> UI: pending/denied
+            UI --> U: show registration pending/denied
+          end
+
+        end
+
+      end
+
+    end
+
+  end
+
+end
+
+@enduml

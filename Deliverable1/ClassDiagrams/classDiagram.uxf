@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>6</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>354</x>
+      <y>474</y>
+      <w>288</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>/*User*/
+--
+- userId: String
+- name: String
+- email: String
+- passwordHash: String
+- idNumber: String
+- accountStatus: AccountStatus
+--
++ register(email: String, password: String, idNumber: String): void
++ login(email: String, password: String): boolean
++ getHourlyRate(): double</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>468</x>
+      <y>624</y>
+      <w>126</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Researcher
+--
++ getHourlyRate(): double</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>600</x>
+      <y>624</y>
+      <w>126</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Guest
+--
++ getHourlyRate(): double</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>198</x>
+      <y>624</y>
+      <w>126</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Student
+--
++ getHourlyRate(): double</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>336</x>
+      <y>624</y>
+      <w>126</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Faculty
+--
++ getHourlyRate(): double</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>258</x>
+      <y>576</y>
+      <w>126</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>190.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>618</x>
+      <y>576</y>
+      <w>60</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;80.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>522</x>
+      <y>576</y>
+      <w>18</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>396</x>
+      <y>576</y>
+      <w>18</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>348</x>
+      <y>300</y>
+      <w>294</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>Reservation
+--
+-- reservationId: String
+-- startTime: LocalDateTime
+-- endTime: LocalDateTime
+-- status: ReservationStatus
+-- depositAmount: double
+-- depositForfeited: boolean
+--
++ modify(newStartL LocalDateTime, newEnd, LocalDateTime): void
++ cancel(): void
++ extend(newEnd: LocalDateTime): void
++ durationHours(): double</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>360</x>
+      <y>138</y>
+      <w>288</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>Equipment
+--
+-- equipmentId: String
+-- description: String
+-- labLocation: String
+-- status: EquipmentStatus
+--
++ enable(): void
++ disable(): void
++ markUnderMaintenance(): void
++ isAvailable(start: LocalDateTime, end: LocalDateTime): boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>714</x>
+      <y>294</y>
+      <w>216</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>Payment
+--
+-- paymentId: String
+-- amount: double
+-- method: PaymentMethod
+-- status: PaymentStatus
+-- timestamp: LocalDateTime
+-- type: PaymentType
+--
++ process(gateway: PaymentGateway): boolean
++ refund(gatewayL PaymentGateway): boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>492</x>
+      <y>414</y>
+      <w>30</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=0..*
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>636</x>
+      <y>348</y>
+      <w>90</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=0..*
+m2=1</panel_attributes>
+    <additional_attributes>130.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>642</x>
+      <y>186</y>
+      <w>102</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=0..*
+m2=1</panel_attributes>
+    <additional_attributes>150.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>732</x>
+      <y>156</y>
+      <w>156</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>UsageRecord
+--
+-- recordId: String
+-- startTime: LocalDateTime
+-- endTime: LocalDateTime
+-- durationMinutes: int
+-- operationStatus: String
+--
++ computerDurationMinutes(): int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>810</x>
+      <y>12</y>
+      <w>312</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>HeadLabCoordinator
+--
+- coordinatorId: String
+- name: String
+- email: String
+--
++ createLabManagerAccount(name: String, email: String): LabManager</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>354</x>
+      <y>0</y>
+      <w>390</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>LabManager
+--
+- managerId: String
+- name: String
+- email: String
+--
++ addEquipment(equipmentId: String, description: String, labLocation: String): Equipment
++ enableEquipment(e: Equipment): void
++ disableEquipment(e: Equipment): void
++ markUnderMaintenance(e: Equipment): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>738</x>
+      <y>42</y>
+      <w>84</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m2=0..*
+m1=1</panel_attributes>
+    <additional_attributes>120.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1002</x>
+      <y>324</y>
+      <w>270</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt; interface &gt;&gt;
+PaymentGateway
+--
++ charge(amount: double, method: PaymentMethod): boolean
++ refund(amount: double): boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>510</y>
+      <w>234</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt; interface &gt;&gt;
+DepartmentApprovalSystem
+--
++ requestApproval(u: User): ApprovalStatus
++ getApprovalStatus(email: String): ApprovalStatus</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>114</x>
+      <y>342</y>
+      <w>162</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>SystemClock
+--
++ now(): LocalDateTime
++ isLate(res: Reservation): boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>972</x>
+      <y>168</y>
+      <w>276</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt; interface &gt;&gt;
+EquipmentSensorSystem
+--
++ sendStatusUpdate(e: Equipment): void
++ sendUsageUpdate(e: Equipment, record: UsageRecord): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>486</x>
+      <y>234</y>
+      <w>30</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m2=0..*
+m1=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>924</x>
+      <y>336</y>
+      <w>90</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+uses</panel_attributes>
+    <additional_attributes>130.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>228</x>
+      <y>522</y>
+      <w>138</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+uses</panel_attributes>
+    <additional_attributes>10.0;20.0;210.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>264</x>
+      <y>354</y>
+      <w>96</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+checks</panel_attributes>
+    <additional_attributes>140.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>882</x>
+      <y>186</y>
+      <w>102</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+updates</panel_attributes>
+    <additional_attributes>10.0;20.0;150.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>870</x>
+      <y>528</y>
+      <w>84</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>EquipmentStatus</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>870</x>
+      <y>576</y>
+      <w>84</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>ReservationStatus</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>882</x>
+      <y>600</y>
+      <w>84</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>AccountStatus</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>882</x>
+      <y>504</y>
+      <w>84</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>PaymentMethod</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>882</x>
+      <y>552</y>
+      <w>84</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>PaymentStatus</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>870</x>
+      <y>480</y>
+      <w>84</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>PaymentType</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>870</x>
+      <y>624</y>
+      <w>84</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>ApprovalStatus</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>534</x>
+      <y>84</y>
+      <w>30</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=0..*
+m2=1</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>

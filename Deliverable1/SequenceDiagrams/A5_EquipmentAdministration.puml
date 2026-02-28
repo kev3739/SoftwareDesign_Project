@@ -1,0 +1,96 @@
+@startuml
+title A5 - Equipment Administration
+
+actor "Lab Manager" as LM
+boundary "Equipment Admin UI" as UI
+control "Equipment System" as SYS
+
+' --- Entry ---
+
+LM -> UI: open equipment administration panel
+UI --> LM: show admin tasks
+LM -> UI: select equipment admin task
+
+
+' ======================================================
+' UC22: Disable Equipment
+' ======================================================
+
+group UC22: Disable Equipment
+  LM -> UI: select equipment
+  UI -> SYS: fetch equipment
+  SYS --> UI: equipment details
+
+  UI -> SYS: set status = Disabled
+  SYS --> UI: status updated
+
+  SYS -> SYS: flag equipment as non-bookable\n(prevent new reservations)
+
+  UI --> LM: show updated status
+  UI --> LM: show confirmation
+end
+
+
+' ======================================================
+' UC23: Mark Under Maintenance
+' ======================================================
+
+group UC23: Mark Equipment Under Maintenance
+  LM -> UI: select equipment
+  UI -> SYS: fetch equipment
+  SYS --> UI: equipment details
+
+  UI -> SYS: set status = Maintenance
+  SYS --> UI: status updated
+
+  SYS -> SYS: flag equipment as non-bookable\n(prevent new reservations)
+
+  UI --> LM: show updated status
+  UI --> LM: show confirmation
+end
+
+
+' ======================================================
+' UC21: Enable Equipment
+' ======================================================
+
+group UC21: Enable Equipment
+  LM -> UI: select equipment
+  UI -> SYS: fetch equipment
+  SYS --> UI: equipment details
+
+  UI -> SYS: set status = Available
+  SYS --> UI: status updated
+
+  SYS -> SYS: mark equipment as bookable\n(allow new reservations)
+
+  UI --> LM: show updated status
+  UI --> LM: show confirmation
+end
+
+
+' ======================================================
+' UC20: Add Equipment
+' ======================================================
+
+group UC20: Add Equipment
+
+  loop until unique ID
+    LM -> UI: enter equipment details\n(ID, description, lab location)
+    UI -> SYS: validate unique equipment ID
+    SYS --> UI: validation result
+
+    alt NOT unique
+      UI --> LM: show duplicate ID error
+    else unique
+      UI -> SYS: save equipment record
+      SYS --> UI: equipment saved
+
+      UI --> LM: show updated status
+      UI --> LM: show confirmation
+    end
+  end
+
+end
+
+@enduml

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>248</x>
+      <y>24</y>
+      <w>304</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>bg=blue
+**Use Case Diagram A6: System Administration**</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>48</x>
+      <y>184</y>
+      <w>80</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>Head Lab
+Coordinator</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>472</x>
+      <y>88</y>
+      <w>208</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>bg=yellow
+Only the Head Lab Coordinator
+can auto-generate Lab Manager
+accounts (Req2)
+
+Only ONE Head Lab Coordinator
+exists in the system</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>472</x>
+      <y>248</y>
+      <w>208</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>bg=yellow
+Administrative functions:
+• View all users
+• Deactivate accounts
+• Reset passwords
+• Audit user activity</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>464</x>
+      <y>392</y>
+      <w>232</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>bg=yellow
+**Requirements Covered:**
+• Req2: Lab Manager Account Creation</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>544</x>
+      <y>328</y>
+      <w>24</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>224</x>
+      <y>120</y>
+      <w>128</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>bg=gray
+UC24: Create Lab
+Manager Account</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>232</x>
+      <y>248</y>
+      <w>112</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>bg=gray
+UC25: Manage
+User Accounts</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>344</x>
+      <y>96</y>
+      <w>144</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>160.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>336</x>
+      <y>256</y>
+      <w>152</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>170.0;30.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>104</x>
+      <y>128</y>
+      <w>136</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>150.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>104</x>
+      <y>200</y>
+      <w>144</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>160.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>

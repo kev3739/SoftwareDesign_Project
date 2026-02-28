@@ -1,0 +1,151 @@
+@startuml
+title A2 - Equipment Discovery & Reservation
+
+actor User as U
+boundary "Equipment Portal UI" as UI
+control "Reservation System" as RS
+control "Availability Service" as AS
+control "Payment Service" as PS
+
+
+' ======================================================
+' UC6: View Available Equipment
+' ======================================================
+
+group UC6: View Available Equipment
+  U -> UI: open equipment catalog
+  UI -> RS: request available equipment list
+  RS --> UI: available equipment list
+  UI --> U: show available equipment list
+end
+
+
+
+' ======================================================
+' UC7: View Equipment Details
+' ======================================================
+
+alt views equipment details
+  group UC7: View Equipment Details
+    loop equipment
+      U -> UI: select equipment
+      UI -> RS: request equipment details
+      RS --> UI: equipment details
+      UI --> U: show equipment details
+    end
+    UI --> U: select reservation action
+  end
+end
+
+
+
+' ======================================================
+' UC8: Reserve Equipment
+' ======================================================
+
+alt Reserve Equipment (UC8)
+  group UC8: Reserve Equipment
+    U -> UI: choose "Reserve equipment"
+    UI --> U: prompt: select equipment + time slot
+    U -> UI: submit equipment + time slot
+    UI -> RS: submit reservation request
+  end
+
+
+  ' ----------- UC13 included inside UC8 -------------
+  group UC13: Check Equipment Availability
+    RS -> AS: check availability
+    AS --> RS: available? (yes/no)
+  end
+
+
+  alt available
+    UI --> U: show reservation summary\nand request confirmation
+    U -> UI: confirm reservation request
+
+    group UC9: Pay Reservation Deposit
+      UI -> PS: pay reservation deposit
+      PS --> UI: payment accepted
+      UI -> RS: create reservation
+      RS --> UI: reservation created
+    end
+
+    UI --> U: show reservation confirmation
+
+  else not available
+    UI --> U: show unavailable message
+  end
+
+end
+
+
+
+' ======================================================
+' UC10: Modify Reservation
+' ======================================================
+
+group UC10: Modify Reservation
+  U -> UI: choose "Modify reservation"
+  UI --> U: prompt: select reservation
+  U -> UI: submit reservation to modify
+  UI -> RS: fetch reservation
+  RS --> UI: reservation details
+
+  alt start time not passed
+    U -> UI: submit modified reservation
+    UI -> RS: save modified reservation
+    RS --> UI: modification saved
+    UI --> U: show modification confirmation
+
+  else start time passed
+    UI --> U: show modification not allowed
+  end
+end
+
+
+
+' ======================================================
+' UC11: Cancel Reservation
+' ======================================================
+
+group UC11: Cancel Reservation
+  U -> UI: choose "Cancel reservation"
+  UI --> U: prompt: select reservation
+  U -> UI: submit reservation to cancel
+  UI -> RS: cancel reservation
+  RS --> UI: cancellation completed
+  UI --> U: show cancellation confirmation
+end
+
+
+
+' ======================================================
+' UC12: Extend Reservation
+' ======================================================
+
+group UC12: Extend Reservation
+  U -> UI: choose "Extend reservation"
+  UI --> U: prompt: select reservation to extend
+  U -> UI: submit reservation to extend
+  UI -> RS: request extension
+end
+
+
+' ----------- UC13 included inside UC12 -------------
+group UC13: Check Equipment Availability
+  RS -> AS: check availability after end time
+  AS --> RS: available after? (yes/no)
+end
+
+
+alt available after
+  RS -> RS: update reservation end time
+  RS --> UI: end time updated
+  UI --> U: show extension confirmation
+
+else not available after
+  UI --> U: show extension denied
+end
+
+
+@enduml

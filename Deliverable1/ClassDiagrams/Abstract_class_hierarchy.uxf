@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>432</x>
+      <y>184</y>
+      <w>352</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>bg=blue
+**Actor Hierarchy Diagram: User Generalization Model**</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>496</x>
+      <y>232</y>
+      <w>96</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>System Clock</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>584</x>
+      <y>224</y>
+      <w>160</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>bg=yellow
+**System Clock**
+Automated time tracking
+Late arrival detection
+(Req4, Req9)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>480</x>
+      <y>328</y>
+      <w>136</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>Department Approval
+System</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>584</x>
+      <y>320</y>
+      <w>208</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>bg=yellow
+**Department Approval System**
+Approves Faculty/Researcher
+University authority
+(Req1)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>488</x>
+      <y>448</y>
+      <w>112</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>Payment System</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>584</x>
+      <y>432</y>
+      <w>168</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>bg=yellow
+**Payment System**
+External payment gateway
+Multiple payment methods
+(Req4, Req10)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>480</x>
+      <y>560</y>
+      <w>120</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>Equipment Sensor
+System</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>584</x>
+      <y>552</y>
+      <w>184</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>bg=yellow
+**Equipment Sensor System**
+IoT-based monitoring
+Tracks equipment usage
+(Req5)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>504</x>
+      <y>672</y>
+      <w>192</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>bg=yellow
+**Head Lab Coordinator**
+Creates Lab Manager accounts
+Highest privilege level
+(Req2)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>696</x>
+      <y>680</y>
+      <w>88</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>Head Lab
+Coordinator</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>512</x>
+      <y>784</y>
+      <w>184</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>bg=yellow
+**Lab Manager**
+Manages equipment
+Created by Head Coordinator
+(Req2, Req6, Req7)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>688</x>
+      <y>792</y>
+      <w>96</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>Lab Manager</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>496</x>
+      <y>920</y>
+      <w>80</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>«abstract»
+User</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>568</x>
+      <y>1040</y>
+      <w>64</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>Student</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>632</x>
+      <y>1008</y>
+      <w>208</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>bg=yellow
+**Student**
+• Rate: $10/hour
+• ID: Student ID
+• Approval: Not Required
+• Payment: Institutional Account</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>568</x>
+      <y>1152</y>
+      <w>64</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>Faculty</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>632</x>
+      <y>1128</y>
+      <w>184</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>bg=yellow
+**Faculty**
+• Rate: $15/hour
+• ID: Staff ID
+• Approval: Required
+• Payment: Standard methods</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>560</x>
+      <y>1256</y>
+      <w>80</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>Researcher</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>632</x>
+      <y>1232</y>
+      <w>184</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>bg=yellow
+**Researcher**
+• Rate: $20/hour
+• ID: Certification Number
+• Approval: Required
+• Payment: Research Grants</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>576</x>
+      <y>1368</y>
+      <w>48</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>Guest</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>632</x>
+      <y>1344</y>
+      <w>184</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>bg=yellow
+**Guest**
+• Rate: $30/hour
+• ID: Certification Number
+• Approval: Not Required
+• Payment: Standard methods</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>568</x>
+      <y>904</y>
+      <w>200</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>bg=yellow
+**Abstract User Actor**
+All user types inherit
+common behaviors through
+generalization (polymorphism)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>544</x>
+      <y>1008</y>
+      <w>48</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0;40.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>536</x>
+      <y>1008</y>
+      <w>56</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;200.0;50.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>528</x>
+      <y>1008</y>
+      <w>64</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;330.0;60.0;330.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>520</x>
+      <y>1008</y>
+      <w>72</w>
+      <h>392</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;470.0;70.0;470.0</additional_attributes>
+  </element>
+</diagram>
