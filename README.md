@@ -1,5 +1,5 @@
 # Lab Reservation System
-EECS 3311 – Software Design | Deliverable 2
+EECS 3311 – Software Design | Latest Update: Deliverable 2
 
 ---
 
