@@ -1,0 +1,7 @@
+equipmentId,description,labLocation,status
+EQ001,Digital Microscope,Lab A,AVAILABLE
+EQ002,Centrifuge,Lab A,AVAILABLE
+EQ003,PCR Machine,Lab B,AVAILABLE
+EQ004,Spectrophotometer,Lab B,AVAILABLE
+EQ005,Oscilloscope,Lab C,DISABLED
+EQ006,3D Printer,Lab C,MAINTENANCE
