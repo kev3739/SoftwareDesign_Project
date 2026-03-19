@@ -4,12 +4,14 @@ public class Equipment {
     private String equipmentId;
     private String description;
     private String labLocation;
+    private String status;
     private EquipmentState state;
 
     public Equipment(String equipmentId, String description, String labLocation) {
         this.equipmentId = equipmentId;
         this.description = description;
         this.labLocation = labLocation;
+        this.status = "AVAILABLE";
         this.state = new AvailableState();
     }
 
@@ -23,6 +25,14 @@ public class Equipment {
 
     public String getLabLocation() {
         return labLocation;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public EquipmentState getState() {
