@@ -1,0 +1,6 @@
+userType,name,email,password,idNumber,approved
+student,James Carter,jcarter@yorku.ca,Strong@123,123456789,true
+faculty,Priya Sharma,psharma@yorku.ca,Faculty@123,987654321,true
+researcher,Darius Tehrani,dtehrani@yorku.ca,Research@123,111222333,true
+guest,Emily Brown,ebrown@yorku.ca,Guest@123,444555666,true
+LabManager,Arjun Patel,apatel@yorku.ca,Manager@123,LM001,true
