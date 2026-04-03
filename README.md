@@ -1,6 +1,6 @@
 # EECS3311 Lab Equipment Reservation System
 
-A Java Swing application for managing lab equipment reservations, built across two deliverables.
+A Java Swing application for managing lab equipment reservations.
 
 ---
 
