@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>ca.yorku.eecs3311</groupId>
+  <artifactId>lab-reservation-system</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>EECS3311 Lab Equipment Reservation System</name>
+  <description>Deliverable 3 — Maven Version with JaCoCo and PIT mutation testing</description>
+
+  <properties>
+    <maven.compiler.source>21</maven.compiler.source>
+    <maven.compiler.target>21</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <!-- Dependency versions -->
+    <junit.version>5.10.1</junit.version>
+    <jacoco.version>0.8.11</jacoco.version>
+    <pit.version>1.15.3</pit.version>
+    <pit.junit5.version>1.2.1</pit.junit5.version>
+  </properties>
+
+  <dependencies>
+    <!-- JUnit 5 API — used in test source code -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- JUnit 5 Engine — needed by Maven Surefire to actually run tests -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- JUnit 5 Params — for parameterized tests -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- JUnit 4 — required by Randoop-generated tests -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.2</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- JUnit Vintage Engine — allows JUnit 4 tests to run under JUnit Platform / Surefire 3.x -->
+    <dependency>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+
+      <!-- Compiler: enforce Java 11 -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.11.0</version>
+        <configuration>
+          <excludes>
+            <exclude>gui/**</exclude>
+            <exclude>default/**</exclude>
+          </excludes>
+          <source>21</source>
+          <target>21</target>
+        </configuration>
+      </plugin>
+
+      <!-- Surefire: run JUnit 5 tests, generate XML reports -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.1.2</version>
+        <configuration>
+          <!-- By default, runs ALL tests. Override with -Dtest=... or -Dgroups=... -->
+          <includes>
+            <include>**/*Test.java</include>
+          </includes>
+          <!-- Enable JaCoCo agent via argLine property set below -->
+          <argLine>${jacoco.argLine}</argLine>
+        </configuration>
+      </plugin>
+
+      <!-- JaCoCo: instrument classes, generate coverage reports -->
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${jacoco.version}</version>
+        <configuration>
+          <excludes>
+            <exclude>gui/**</exclude>
+            <exclude>default/**</exclude>
+          </excludes>
+        </configuration>
+        <executions>
+          <!-- Bind agent before tests run -->
+          <execution>
+            <id>prepare-agent</id>
+            <goals><goal>prepare-agent</goal></goals>
+            <configuration>
+              <propertyName>jacoco.argLine</propertyName>
+            </configuration>
+          </execution>
+          <!-- Generate HTML + XML report after tests -->
+          <execution>
+            <id>report</id>
+            <phase>test</phase>
+            <goals><goal>report</goal></goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/jacoco-report</outputDirectory>
+            </configuration>
+          </execution>
+          <!-- Fail build if coverage drops below thresholds -->
+          <execution>
+            <id>check</id>
+            <goals><goal>check</goal></goals>
+            <configuration>
+              <rules>
+                <rule>
+                  <element>BUNDLE</element>
+                  <limits>
+                    <limit>
+                      <counter>LINE</counter>
+                      <value>COVEREDRATIO</value>
+                      <minimum>0.50</minimum>
+                    </limit>
+                  </limits>
+                </rule>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- PIT Mutation Testing: run with 'mvn org.pitest:pitest-maven:mutationCoverage' -->
+      <plugin>
+        <groupId>org.pitest</groupId>
+        <artifactId>pitest-maven</artifactId>
+        <version>${pit.version}</version>
+        <dependencies>
+          <!-- PIT JUnit 5 support plugin -->
+          <dependency>
+            <groupId>org.pitest</groupId>
+            <artifactId>pitest-junit5-plugin</artifactId>
+            <version>${pit.junit5.version}</version>
+          </dependency>
+        </dependencies>
+        <configuration>
+          <!-- Target classes to mutate (exclude GUI, test runner, stubs) -->
+          <targetClasses>
+            <param>model.*</param>
+            <param>data.*</param>
+            <param>service.*</param>
+            <param>command.*</param>
+            <param>factory.*</param>
+            <param>strategy.*</param>
+            <param>state.*</param>
+            <param>observer.*</param>
+            <param>util.*</param>
+          </targetClasses>
+          <!-- Only run tests in these packages against the mutations.
+               PIT glob: 'manual.*' matches all classes in the manual package.
+               Using explicit package prefixes avoids the '*Test' ambiguity where
+               PIT cannot resolve whether '*' crosses package boundaries. -->
+          <targetTests>
+            <param>manual.*</param>
+            <param>ai_assisted.*</param>
+            <param>randoop.*</param>
+          </targetTests>
+          <!-- Mutation operators -->
+          <mutators>
+            <mutator>STRONGER</mutator>
+          </mutators>
+          <!-- Output formats -->
+          <outputFormats>
+            <outputFormat>HTML</outputFormat>
+            <outputFormat>XML</outputFormat>
+          </outputFormats>
+          <reportsDirectory>${project.build.directory}/pit-reports</reportsDirectory>
+          <!-- Verbose output -->
+          <verbose>true</verbose>
+          <!-- Time limit per test (ms) -->
+          <timeoutFactor>2.0</timeoutFactor>
+          <timeoutConstant>4000</timeoutConstant>
+          <!-- ErrorTest0 contains intentional NPE tests (Randoop bug-finding output).
+               These are expected failures, not test suite defects. Skip them so PIT
+               does not abort with "green suite" requirement violation. -->
+          <excludedTestClasses>
+            <param>randoop.ErrorTest0</param>
+          </excludedTestClasses>
+          <skipFailingTests>true</skipFailingTests>
+        </configuration>
+      </plugin>
+
+    </plugins>
+  </build>
+
+  <!--
+    ════════════════════════════════════════════════════════
+    PROFILES — Run each test suite independently with coverage
+    ════════════════════════════════════════════════════════
+
+    mvn test -Pmanual-suite
+        Runs only Phase 1A/1B hand-written tests.
+        Coverage report: target/jacoco-manual/
+
+    mvn test -Prandoop-suite
+        Runs only Randoop-generated tests.
+        Coverage report: target/jacoco-randoop/
+
+    mvn test -Pai-suite
+        Runs only AI-assisted tests.
+        Coverage report: target/jacoco-ai/
+  -->
+  <profiles>
+
+    <profile>
+      <id>manual-suite</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <includes>
+                <include>manual/**/*Test.java</include>
+              </includes>
+              <argLine>${jacoco.argLine}</argLine>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <configuration>
+              <excludes>
+                <exclude>gui/**</exclude>
+                <exclude>default/**</exclude>
+              </excludes>
+            </configuration>
+            <executions>
+              <execution>
+                <id>prepare-agent</id>
+                <goals><goal>prepare-agent</goal></goals>
+                <configuration>
+                  <propertyName>jacoco.argLine</propertyName>
+                </configuration>
+              </execution>
+              <execution>
+                <id>report</id>
+                <phase>test</phase>
+                <goals><goal>report</goal></goals>
+                <configuration>
+                  <outputDirectory>${project.build.directory}/jacoco-manual</outputDirectory>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>randoop-suite</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <includes>
+                <include>randoop/**/*Test*.java</include>
+              </includes>
+              <argLine>${jacoco.argLine}</argLine>
+              <!-- Randoop-generated tests may have expected failures (ErrorTest*)
+                   and time-sensitive regression snapshots; ignore failures so
+                   JaCoCo can still generate the coverage report. -->
+              <testFailureIgnore>true</testFailureIgnore>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <configuration>
+              <excludes>
+                <exclude>gui/**</exclude>
+                <exclude>default/**</exclude>
+              </excludes>
+            </configuration>
+            <executions>
+              <execution>
+                <id>prepare-agent</id>
+                <goals><goal>prepare-agent</goal></goals>
+                <configuration>
+                  <propertyName>jacoco.argLine</propertyName>
+                </configuration>
+              </execution>
+              <execution>
+                <id>report</id>
+                <phase>test</phase>
+                <goals><goal>report</goal></goals>
+                <configuration>
+                  <outputDirectory>${project.build.directory}/jacoco-randoop</outputDirectory>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>ai-suite</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <includes>
+                <include>ai_assisted/**/*Test.java</include>
+              </includes>
+              <argLine>${jacoco.argLine}</argLine>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <configuration>
+              <excludes>
+                <exclude>gui/**</exclude>
+                <exclude>default/**</exclude>
+              </excludes>
+            </configuration>
+            <executions>
+              <execution>
+                <id>prepare-agent</id>
+                <goals><goal>prepare-agent</goal></goals>
+                <configuration>
+                  <propertyName>jacoco.argLine</propertyName>
+                </configuration>
+              </execution>
+              <execution>
+                <id>report</id>
+                <phase>test</phase>
+                <goals><goal>report</goal></goals>
+                <configuration>
+                  <outputDirectory>${project.build.directory}/jacoco-ai</outputDirectory>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+  </profiles>
+
+</project>
